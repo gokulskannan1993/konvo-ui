@@ -12,6 +12,7 @@ import OnboardingPage from './pages/OnboardingPage.jsx'
 import NotificationPage from './pages/NotificationPage.jsx';
 import PageLoader from './components/PageLoader.jsx'
 import useAuthUser from './hooks/useAuthUser.js'
+import Layout from './components/Layout.jsx'
 
 const App = () => {
 
@@ -32,7 +33,14 @@ const App = () => {
     <div data-theme="night" className="h-screen">
 
       <Routes>
-        <Route path="/" element={isAuthenticated && isVerified ? <HomePage /> : <Navigate to={!isAuthenticated ? "/login" : "/onboarding"} />} />
+        <Route path="/" element={
+          isAuthenticated && isVerified ?
+            <Layout showSidebar>
+              <HomePage />
+            </Layout>
+            :
+            <Navigate to={!isAuthenticated ? "/login" : "/onboarding"} />}
+        />
         <Route path="/signup" element={!isAuthenticated ? <SignUpPage /> : <Navigate to="/" />} />
         <Route path="/login" element={
           !isAuthenticated ?
