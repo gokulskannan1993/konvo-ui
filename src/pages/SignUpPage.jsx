@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { LifeBuoy } from 'lucide-react';
-import { React, useState } from 'react'
+import { React, use, useState } from 'react'
 import { Link } from 'react-router';
 import { signUp } from '../lib/api.js';
 
@@ -14,14 +14,9 @@ const SignUpPage = () => {
     });
 
 
-    const queryClient = useQueryClient();
 
 
-    const { mutate: signUpMutation, isPending, error } = useMutation({
-        mutationFn: signUp,
-        onSuccess: () => queryClient.invalidateQueries({ queryKey: ['authUser'] }),
-    });
-
+    const { isPending, error, signUpMutation } = useSignUp()
     const handleSignUp = (e) => {
         e.preventDefault();
         signUpMutation(signUpData);
