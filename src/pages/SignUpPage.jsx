@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { LifeBuoy } from 'lucide-react';
 import { React, useState } from 'react'
 import { Link } from 'react-router';
-import { axiosInstance } from '../lib/axios';
+import { signUp } from '../lib/api.js';
 
 const SignUpPage = () => {
 
@@ -17,17 +17,14 @@ const SignUpPage = () => {
     const queryClient = useQueryClient();
 
 
-    const { mutate, isPending, error } = useMutation({
-        mutationFn: async () => {
-            const res = await axiosInstance.post('/auth/signup', signUpData);
-            return res.data;
-        },
+    const { mutate: signUpMutation, isPending, error } = useMutation({
+        mutationFn: signUp,
         onSuccess: () => queryClient.invalidateQueries({ queryKey: ['authUser'] }),
     });
 
     const handleSignUp = (e) => {
         e.preventDefault();
-        mutate();
+        signUpMutation(signUpData);
     }
 
 
@@ -42,6 +39,10 @@ const SignUpPage = () => {
                         <LifeBuoy className="size-9 text-primary" />
                         <span className="text-3xl font-bold font-mono bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary tracking-wider">Konvo</span>
                     </div>
+                    {error && (<div className="alert alert-error shadow-lg mb-4">
+                        <span>{error.response.data.message}</span>
+                    </div>)}
+
                     <div className="w-full">
                         <form onSubmit={handleSignUp}>
                             <div className="space-y-4">
@@ -99,7 +100,14 @@ const SignUpPage = () => {
 
                             </div>
                             <div className="form-control mt-6">
-                                <button type="submit" className="btn btn-primary">{isPending ? "Creating Account..." : "Create Account"}</button>
+                                <button type="submit" className="btn btn-primary">
+                                    {isPending ? (
+                                        <>
+                                            <span className="loading loading-spinner loading-sm"></span>
+                                            Creating Account...
+                                        </>
+                                    ) : ("Create Account")}
+                                </button>
                             </div>
 
                         </form>
