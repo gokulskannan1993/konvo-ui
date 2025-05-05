@@ -94,7 +94,7 @@ const SignUpPage = () => {
                                 <div className="form-control">
                                     <label className="label cursor-pointer justify-start gap-2">
                                         <input type="checkbox" className="checkbox checkbox-primary" required />
-                                        <span className="label-text">I agree to the <a href="/terms" className="text-primary">Terms and Conditions</a></span>
+                                        <span className="label-text">I agree to the <a href="/" className="text-primary">Terms and Conditions</a></span>
                                     </label>
                                 </div>
 
