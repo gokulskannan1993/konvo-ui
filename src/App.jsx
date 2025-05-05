@@ -1,6 +1,7 @@
 import React from 'react'
 import { Routes, Route } from 'react-router'
-import { Toaster, toast } from 'react-hot-toast'
+import { Toaster } from 'react-hot-toast'
+import { useQuery } from '@tanstack/react-query'
 
 
 import HomePage from './pages/HomePage.jsx'
@@ -13,12 +14,18 @@ import OnboardingPage from './pages/OnboardingPage.jsx'
 
 
 const App = () => {
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["todos"],
+    queryFn: async () => {
+      const res = await fetch("https://jsonplaceholder.typicode.com/todos");
+      const data = await res.json();
+      return data;
+    }
+  });
+  console.log(data);
   return (
-    <div data-theme="night" className="h-screen flex flex-col items-center justify-center">
-      <div className="space-y-4 flex flex-col items-center">
-        <button className="btn btn-primary " onClick={() => toast.success("Success Toast")}>Success Toast</button>
-        <button className="btn btn-primary" onClick={() => toast.error("Error Toast")}>Error Toast</button>
-      </div>
+    <div data-theme="night" className="h-screen">
+
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/signup" element={<SignUpPage />} />
