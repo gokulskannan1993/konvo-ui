@@ -22,7 +22,7 @@ const LoginPage = () => {
             toast.success('Login successful')
         },
         onError: (error) => {
-            toast.error(error.message)
+            toast.error(error.response.data.message)
         }
     })
 
@@ -85,7 +85,7 @@ const LoginPage = () => {
                         </form>
                         <div className="divider my-4">OR</div>
                         <div className="flex items-center justify-between mb-4">
-                            <p className="text-sm ">Don't have an account? <Link to="/signup" className="text-primary">Sign Up</Link></p>
+                            <p className="text-sm ">Don't have an account? <Link to="/signup" className="text-primary">Create One</Link></p>
                         </div>
 
                     </div>
