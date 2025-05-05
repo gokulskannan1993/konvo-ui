@@ -1,6 +1,7 @@
 import { LifeBuoy } from 'lucide-react';
 import { React, use, useState } from 'react'
 import { Link } from 'react-router';
+import useSignUp from '../hooks/useSignUp.js';
 
 const SignUpPage = () => {
 
