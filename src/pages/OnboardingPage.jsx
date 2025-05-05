@@ -2,7 +2,7 @@ import { React, useState } from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'react-hot-toast'
 import { completeVerfication } from '../lib/api.js'
-import { CameraIcon, GlobeIcon, MapPinIcon, ShuffleIcon } from 'lucide-react'
+import { CameraIcon, GlobeIcon, MapPinIcon, ShuffleIcon, LoaderCircle } from 'lucide-react'
 import useAuthUser from '../hooks/useAuthUser.js'
 import { LANGUAGES } from '../constants/constants.js'
 
@@ -15,7 +15,7 @@ const OnboardingPage = () => {
     const [formState, setFormState] = useState({
         name: authUser?.name || '',
         bio: authUser?.bio || '',
-        location: authUser?.country || '',
+        country: authUser?.country || '',
         profilePicture: authUser?.profilePicture || '',
         nativeLanguage: authUser?.nativeLanguage || '',
         learningLanguage: authUser?.learningLanguage || '',
@@ -28,7 +28,7 @@ const OnboardingPage = () => {
             queryClient.invalidateQueries('authUser')
         },
         onError: (error) => {
-            toast.error(error.message)
+            toast.error(error.response.data.message)
         }
     })
 
@@ -37,7 +37,14 @@ const OnboardingPage = () => {
         onboardingMutation(formState)
     }
 
-    const handleRandomAvatar = () => { }
+    const handleRandomAvatar = () => {
+        const randomAvatar = `https://api.dicebear.com/5.x/avataaars/svg?seed=${Math.floor(Math.random() * 10000)}`
+        setFormState((prevState) => ({
+            ...prevState,
+            profilePicture: randomAvatar,
+        }))
+        toast.success('Random avatar generated!')
+    }
 
 
 
@@ -104,7 +111,9 @@ const OnboardingPage = () => {
                                     value={formState.bio}
                                     onChange={(e) => setFormState({ ...formState, bio: e.target.value })}
                                     className="textarea textarea-bordered w-full"
+                                    placeholder="Tell us about yourself..."
                                     required
+
                                 ></textarea>
                             </div>
 
@@ -165,11 +174,11 @@ const OnboardingPage = () => {
                                     <input
                                         type="text"
                                         id="location"
-                                        value={formState.location}
-                                        onChange={(e) => setFormState({ ...formState, location: e.target.value })}
+                                        value={formState.country}
+                                        onChange={(e) => setFormState({ ...formState, country: e.target.value })}
                                         className="input input-bordered w-full pl-10"
-                                        required
                                         placeholder="City, Country"
+                                        required
                                     />
                                 </div>
                             </div>
