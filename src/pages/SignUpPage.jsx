@@ -1,8 +1,6 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { LifeBuoy } from 'lucide-react';
 import { React, use, useState } from 'react'
 import { Link } from 'react-router';
-import { signUp } from '../lib/api.js';
 
 const SignUpPage = () => {
 
