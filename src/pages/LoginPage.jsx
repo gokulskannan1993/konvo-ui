@@ -1,9 +1,7 @@
 import { React, useState } from 'react'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { toast } from 'react-hot-toast'
 import { LifeBuoy } from 'lucide-react'
-import { login } from '../lib/api'
 import { Link } from 'react-router'
+import useLogin from '../hooks/useLogin'
 
 const LoginPage = () => {
 
@@ -13,18 +11,8 @@ const LoginPage = () => {
     })
 
 
-    const queryClient = useQueryClient()
-    const { mutate: loginMutation, isPending, error } = useMutation({
-        mutationFn: login,
-        onSuccess: () => {
-            // Invalidate and refetch
-            queryClient.invalidateQueries({ queryKey: ['authUser'] })
-            toast.success('Login successful')
-        },
-        onError: (error) => {
-            toast.error(error.response.data.message)
-        }
-    })
+
+    const { loginMutation, isPending, error } = useLogin()
 
     const handleLogin = (e) => {
         e.preventDefault()
