@@ -1,6 +1,8 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { LifeBuoy } from 'lucide-react';
 import { React, useState } from 'react'
 import { Link } from 'react-router';
+import { axiosInstance } from '../lib/axios';
 
 const SignUpPage = () => {
 
@@ -11,9 +13,21 @@ const SignUpPage = () => {
         confirmPassword: ""
     });
 
+
+    const queryClient = useQueryClient();
+
+
+    const { mutate, isPending, error } = useMutation({
+        mutationFn: async () => {
+            const res = await axiosInstance.post('/auth/signup', signUpData);
+            return res.data;
+        },
+        onSuccess: () => queryClient.invalidateQueries({ queryKey: ['authUser'] }),
+    });
+
     const handleSignUp = (e) => {
         e.preventDefault();
-        // Handle sign up logic here
+        mutate();
     }
 
 
@@ -85,7 +99,7 @@ const SignUpPage = () => {
 
                             </div>
                             <div className="form-control mt-6">
-                                <button type="submit" className="btn btn-primary">Create Account</button>
+                                <button type="submit" className="btn btn-primary">{isPending ? "Creating Account..." : "Create Account"}</button>
                             </div>
 
                         </form>
