@@ -47,11 +47,11 @@ const SignUpPage = () => {
                         <form onSubmit={handleSignUp}>
                             <div className="space-y-4">
                                 <h2 className="text-xl font-semibold">Create an Account</h2>
-                                <p className="text-sm opacity-70">Join us and start your journey!</p>
-                                <p className="text-sm opacity-70">Already have an account? <Link to="/login" className="text-primary">Login</Link></p>
+                                <p className="text-sm ">Join us and start your journey!</p>
+
                             </div>
-                            <div className="divider my-4">OR</div>
-                            <div className="space-y-3">
+
+                            <div className="space-y-4">
                                 <div className="form-control w-full">
                                     <label className="label">
                                         <span className="label-text">Name</span>
@@ -111,6 +111,11 @@ const SignUpPage = () => {
                             </div>
 
                         </form>
+
+                        <div className="divider my-4">OR</div>
+                        <div className="space-y-4">
+                            <p className="text-sm ">Already have an account? <Link to="/login" className="text-primary">Login</Link></p>
+                        </div>
 
 
                     </div>
