@@ -13,6 +13,7 @@ import NotificationPage from './pages/NotificationPage.jsx';
 import PageLoader from './components/PageLoader.jsx'
 import useAuthUser from './hooks/useAuthUser.js'
 import Layout from './components/Layout.jsx'
+import { useThemeStore } from './store/useThemeStore.js'
 
 const App = () => {
 
@@ -20,6 +21,8 @@ const App = () => {
 
   const isAuthenticated = Boolean(authUser);
   const isVerified = authUser?.isVerified;
+
+  const { theme } = useThemeStore()
 
 
   if (isLoading) {
@@ -30,7 +33,7 @@ const App = () => {
 
 
   return (
-    <div data-theme="forest" className="h-screen">
+    <div data-theme={theme} className="h-screen">
 
       <Routes>
         <Route path="/" element={
