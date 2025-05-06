@@ -5,6 +5,7 @@ import { Bell, LifeBuoy, LogOut } from 'lucide-react'
 import useLogout from '../hooks/useLogout';
 import ThemeSelector from './ThemeSelector';
 
+
 const Navbar = () => {
     const { authUser } = useAuthUser()
 
@@ -13,6 +14,7 @@ const Navbar = () => {
     const isChatPage = location.pathname?.startsWith('/chat')
 
     const logoutMutation = useLogout()
+
 
     return (
 
