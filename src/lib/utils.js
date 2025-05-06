@@ -5,7 +5,7 @@ export function getLanguageFlag(language) {
     const languageLower = language.toLowerCase();
     const countryCode = LANGUAGE_TO_FLAG[languageLower];
     if (countryCode) {
-        return <img src={`https://flagcdn.com/w20/${countryCode}.png`} alt={language} className="inline-block h-3 mr-1" />;
+        return `https://flagcdn.com/w20/${countryCode}.png`
     } else {
         return null; // or a default flag
     }
