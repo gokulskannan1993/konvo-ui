@@ -1,4 +1,4 @@
-import React, { Children } from 'react'
+import React from 'react'
 import Sidebar from './Sidebar'
 import Navbar from './Navbar'
 
