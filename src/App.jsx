@@ -30,7 +30,7 @@ const App = () => {
 
 
   return (
-    <div data-theme="night" className="h-screen">
+    <div data-theme="forest" className="h-screen">
 
       <Routes>
         <Route path="/" element={
