@@ -2,6 +2,7 @@ import React from "react";
 import { useQueryClient, useQuery, useMutation } from "@tanstack/react-query";
 import { acceptFriendRequest, getFriendRequests } from "../lib/api.js";
 import { Clock, UserCheck, MessageSquare } from "lucide-react";
+import NoNotificationsFound from "../components/NoNotificationsFound";
 
 const NotificationPage = () => {
   const queryClient = useQueryClient();
@@ -128,6 +129,9 @@ const NotificationPage = () => {
               ))}
             </div>
           </>
+        )}
+        {incomingRequests.length === 0 && acceptedRequests.length === 0 && (
+          <NoNotificationsFound />
         )}
       </div>
     </div>
