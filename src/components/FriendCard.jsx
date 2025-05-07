@@ -42,7 +42,7 @@ const FriendCard = ({ friend }) => {
             Learning: {capitalizeFirstLetter(friend?.learningLanguage)}
           </span>
         </div>
-        <Link to={`/chat/${friend?._id}`} className="btn btn-outline  w-full">
+        <Link to={`/chat/${friend?._id}`} className="btn btn-outline   w-full">
           Message
         </Link>
       </div>
